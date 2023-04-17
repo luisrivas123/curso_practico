@@ -34,7 +34,7 @@ func chatHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	query := strings.ReplaceAll(message.Text, " ", "+")
-	url := fmt.Sprintf("https://api.openai.com/v1/engines/gpt-3.5-turbo/completions?prompt=%s&max_tokens=100", query)
+	url := fmt.Sprintf("https://api.openai.com/v1/engines/davinci-codex/completions?prompt=%s&max_tokens=100", query)
 
 	req, err := http.NewRequest("POST", url, nil)
 	if err != nil {
@@ -44,7 +44,7 @@ func chatHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer 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")
+	req.Header.Set("Authorization", "Bearer <API_KEY>")
 
 	client := &http.Client{}
 	resp, err := client.Do(req)

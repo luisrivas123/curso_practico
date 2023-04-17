@@ -9,12 +9,13 @@ import (
 	"net/http"
 )
 
-const apiKey = "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"
+const apiKey = "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"
 
 func SendRequest(prompt string) string {
-	url := "https://api.openai.com/v1/engines/gpt-3.5-turbo/completions"
-	data := fmt.Sprintf(`{"prompt": "%s", "max_tokens": 100}`, prompt)
-
+	url := "https://api.openai.com/v1/chat/completions"
+	data := fmt.Sprintf(`{model: "gpt-3.5-turbo", "Messages":[{"role": "user", "content": "%s"}], "max_tokens": 100}`, prompt)
+	fmt.Println(data)
+	fmt.Println(prompt)
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer([]byte(data)))
 	if err != nil {
 		log.Fatalln(err)
@@ -38,7 +39,9 @@ func SendRequest(prompt string) string {
 	var result map[string]interface{}
 	json.Unmarshal([]byte(body), &result)
 
-	return result["choices"].([]map[string]interface{})[0]["text"].(string)
+	// return result["choices"].([]map[string]interface{})[0]["text"].(string)
+	fmt.Println(string(body))
+	return client.Timeout.String()
 }
 
 func main() {
